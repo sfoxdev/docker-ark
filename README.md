@@ -63,17 +63,23 @@ Stopping or restarting the server will cause it to try to save the save game, ho
 ### Example
 
 1. Initial start, in this step ARK installing:
+
 docker run -it -p 7777:7777/udp -p 7778:7778/udp -p 27015:27015/udp --name=ark-tmp sfoxdev/ark
 
 2. After server started, terminate it and copy server files:
+
 docker cp ark-tmp:/home/steam /srv
+
 and
+
 docker stop ark-tmp && docker rm ark-tmp
 
 3. Make test start of server with mounted server files:
+
 docker run -it -v /srv/steam:/home/steam -p 7777:7777/udp -p 7778:7778/udp -p 27015:27015/udp sfoxdev/ark
 
 4. Run server in background:
+
 docker run -d -e BATTLE_EYE=true -v /srv/steam:/home/steam --restart=always --health-start-period=2m -p 7777:7777/udp -p 7778:7778/udp -p 27015:27015/udp --name=ark sfoxdev/ark
 
 or
